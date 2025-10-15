@@ -33,7 +33,7 @@ const Header = () =>{
   
 }
 const RestaurantCard=(props)=>{
-const { resData }=props;
+const { resData,cuisine }=props;
   return(
     <div className='res-card'>
       <img  className="img1" alt="meghanafoods" src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987"/>
@@ -44,17 +44,25 @@ const { resData }=props;
   )
 }
 
-const resObj={resName:"Meghana Foods",
-            cuisine:"South Indian, North Indian, Chinese"}
+const resObj=[
+            {resName:"Meghana Foods",id:"1",
+            cuisine:"South Indian, North Indian, Chinese"},
+            
+            {resName:"Megh Foods", id:"2",
+            cuisine:"North Indian, Chinese"}
+            ]
 
 const Body=()=>{
   return(
     <div className='body'>
       <div className='search'>Search</div>
       <div className='restro-container'>
-        <RestaurantCard
-            resData={resObj}
-        />
+        {resObj.map((restaurant)=>(
+          <RestaurantCard key={restaurant.id}
+            resData= {restaurant}
+          />
+        ))}
+        
         {/* <RestaurantCard
             resName="KFC"
             cuisine="Fast Food, Beverages"
