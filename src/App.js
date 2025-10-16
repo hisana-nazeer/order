@@ -2,76 +2,14 @@
 import './App.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import Header from './components/Header';
+import Body from './components/Body';
+import RestaurantCard from './components/RestaurantCard';
+ 
 
- /*
- *Header-logo, nav items inside navigation bar
- *Body-search bar, restaurant container, restaurant cards
- *Footer-copyright, links, address, contact
-*/
 
-const Header = () =>{
 
-  return(
-    <div>
-      <div className='header'>
-        <div className='logo-container'>
-          <img className='logo'
-          src ='data:image/png;base64,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'/>
-         </div>
-         <div className="nav-items">
-         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
-          <li>Cart</li>
-         </ul>
-        </div>
-        </div>
-      </div>
-  
-  )
-  
-}
-const RestaurantCard=(props)=>{
-const { resData,cuisine }=props;
-  return(
-    <div className='res-card'>
-      <img  className="img1" alt="meghanafoods" src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987"/>
-      <h3>{resData.resName}</h3>
-      <h4>{resData.cuisine}</h4>
-      <div>⭐⭐⭐⭐</div>
-      </div>
-  )
-}
 
-const resObj=[
-            {resName:"Meghana Foods",id:"1",
-            cuisine:"South Indian, North Indian, Chinese"},
-            
-            {resName:"Megh Foods", id:"2",
-            cuisine:"North Indian, Chinese"}
-            ]
-
-const Body=()=>{
-  return(
-    <div className='body'>
-      <div className='search'>Search</div>
-      <div className='restro-container'>
-        {resObj.map((restaurant)=>(
-          <RestaurantCard key={restaurant.id}
-            resData= {restaurant}
-          />
-        ))}
-        
-        {/* <RestaurantCard
-            resName="KFC"
-            cuisine="Fast Food, Beverages"
-        /> */}
-        
-        </div>
-      </div>
-  )
-}
 
 const AppLayout = () => {
   return (
