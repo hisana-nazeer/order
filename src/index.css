@@ -43,7 +43,7 @@
  
   border: 1px solid black;
   width:200px;
-  height:350px;
+  height:400px;
   padding: 5px;
 }
 
@@ -68,13 +68,52 @@
   cursor:pointer;
 
 }
-.img1{
-  width: 200px;
-  height:150px;
+.img{
+  
+  width:200px ;      /* Fixed width or use max-width for responsiveness */
+  height: 150px;      /* Fixed height for uniformity */
+  object-fit: cover;  /* Crops and scales the image so it covers the area */
+  border-radius: 8px; /* Optional: rounded corners for better aesthetics */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
 }
+
+
 .restro-container{
   display:flex;
   flex-direction: row;
   gap:20px;
   padding:20px;
+}
+.shimmer-container{
+  display:flex;
+  flex-direction: row;
+  gap:20px;
+  padding:20px;
+  flex-wrap: wrap;
+}
+.shimmer-card{
+  width:200px;
+  height:400px;
+  background-color:aqua;
+  margin:5px;
+  border-radius:10px;
+  animation: shimmer 1.5s infinite;
+}
+.top-bar{
+  display:flex;
+  
+  align-items:center;
+  
+}
+.search-button{
+  padding:5px;
+  background-color:gray;
+  color:white;
+  width: 100px;
+  height: 40px;
+  text-align:center;
+  border-radius:10px;
+  margin:20px;
+  cursor:pointer;
+
 }
