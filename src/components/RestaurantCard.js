@@ -19,11 +19,12 @@ import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = ({ resData }) => {
   const { name, cloudinaryImageId,imageId, locality,areaName, costForTwo,avgRating } = resData?.info || {};
-  const imageUrl = `${CDN_URL}${cloudinaryImageId}`;
+  // const imageUrl = `${CDN_URL}${cloudinaryImageId}`;
   return (
     <div className="res-card">
       <h3>{name}</h3>
-      <img className="img" src={imageUrl} alt={name} />
+      {/* <img className="img" src={imageUrl} alt={name} /> */}
+      <img src={CDN_URL + cloudinaryImageId} alt={resData.info.name} />
 
       <h4>{locality}</h4>
       <h4>{areaName}</h4>
