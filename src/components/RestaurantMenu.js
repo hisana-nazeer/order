@@ -34,19 +34,35 @@ const RestaurantMenu =() =>{
     return(
         <div>
             <h1>Restaurant Menu Page</h1>
-            <ul>
-                
-<li>{itemCards?.[1]?.card?.card?.itemCards?.[0]?.card?.info?.name || "No item name"}</li>
+            <h2>{name}</h2>
+            <p>{locality} · {costForTwoMessage} · ⭐{avgRating}</p>
 
-
-                <li>{name}</li>
-                <li>{cloudinaryImageId}</li>
-                <li>{locality}</li>
-                <li><p>{cuisines.join(",")}</p></li>
-                <li>{avgRating}</li>
-            </ul>
-        </div>
-   )
-}
+            {itemCards.map((cat, idx) => {
+              const title = cat?.card?.card?.title || 'Category';
+              const items = cat?.card?.card?.itemCards || [];
+              return (
+                <div key={idx}>
+                  <h2>{title}</h2>
+                  <ul>
+                    {items.map((item, i) => {
+                      const info = item?.card?.info || item?.card?.card?.info || {};
+                      const id = info.id ?? i;
+                      const price = info.price ?? info.defaultPrice ?? 0;
+                      return (
+                        <li key={id}>
+                          <h3>{info.name}</h3>
+                          {info.description && <p>{info.description}</p>}
+                          <p>Price: ₹{price / 100}</p>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
+    </div>
+  );
+};
+          
 
 export default RestaurantMenu
