@@ -70,7 +70,7 @@
 }
 .img{
   
-  width:200px ;      /* Fixed width or use max-width for responsiveness */
+  width:100% ;      /* Fixed width or use max-width for responsiveness */
   height: 150px;      /* Fixed height for uniformity */
   object-fit: cover;  /* Crops and scales the image so it covers the area */
   border-radius: 8px; /* Optional: rounded corners for better aesthetics */

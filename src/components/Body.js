@@ -20,8 +20,8 @@ const fetchData=async()=>{
    
    
  
-     const data= await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=8.876263999999999&lng=76.6218787&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
-  // const data= await fetch("https://raw.githubusercontent.com/namastedev/namaste-react/refs/heads/main/swiggy-api")
+   //  const data= await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=8.876263999999999&lng=76.6218787&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
+  const data= await fetch("https://raw.githubusercontent.com/namastedev/namaste-react/refs/heads/main/swiggy-api")
   const json= await data.json();
   console.log(json);
 //    const restaurantCard = data?.cards?.find(card => card?.card?.card?.id === "restaurant_grid_listing_v2");
@@ -75,7 +75,7 @@ if(listOfRestaurants.length===0){
         
           {filteredRestaurants.map((restaurant) => (
             <RestaurantCard
-              // key={restaurant.info.id}
+               key={restaurant.info.id}
               resData={restaurant}
             />
           ))}
