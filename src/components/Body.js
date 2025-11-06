@@ -5,6 +5,7 @@ import resObj from "../utils/mockData";
 import React, { useEffect, useState} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 //
 
@@ -42,7 +43,11 @@ const fetchData=async()=>{
 
     setSearchText("");
   }
-    
+  const onlineStatus=useOnlineStatus();
+  if (onlineStatus===false){
+    return <h1>🔴 Offline, Please check your internet connection!!</h1>
+  }  
+
 if(listOfRestaurants.length===0){
   return <Shimmer />
 }
