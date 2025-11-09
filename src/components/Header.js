@@ -7,14 +7,15 @@ const Header = () =>{
   const onlineStatus=useOnlineStatus();
 
   return(
-    <div>
-      <div className='header'>
-        <div className='logo-container'>
-          <img className='logo'
+    <div className=" shadow-lg mb-2 bg-slate-300">
+
+      <div className='flex justify-between' >
+        <div className='w-28'>
+          <img className='fit-contain '
           src = {LOGO_URL}/>
         </div>
-         <div className="nav-items">
-         <ul>
+         <div className="flex mr-5 ">
+         <ul className="flex gap-10 pt-10 pb-3 ">
           <li>
             {onlineStatus ? "✅ Online" : "🔴 Offline"}
           </li>

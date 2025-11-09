@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Shimmer from "./Shimmer";
-
+import RestaurantCategory from "./RestaurantCategory";
+import ItemList from "./ItemList";
 const RestaurantMenu =() =>{
 
     const [resInfo, setResInfo] = useState(null);
@@ -9,7 +10,9 @@ const RestaurantMenu =() =>{
     const {name,cloudinaryImageId,locality,costForTwoMessage, cuisines, avgRating}= info
 
     const itemCards = resInfo?.cards[4].groupedCard?.cardGroupMap?.REGULAR?.cards || []
-    
+    const categories = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+
+
     useEffect(()=>{
         fetchMenu()
     },[])
@@ -31,37 +34,51 @@ const RestaurantMenu =() =>{
 
    
    
-    return(
-        <div>
-            <h1>Restaurant Menu Page</h1>
-            <h2>{name}</h2>
-            <p>{locality} · {costForTwoMessage} · ⭐{avgRating}</p>
+  //   return(
+  //       <div>
+            
+  //           <h2 className="font-bold my-6  text-center  text-2xl ">{name}</h2>
+  //           <p className="font-medium text-center text-lg">{cuisines.join(", ")} · {costForTwoMessage} · ⭐{avgRating}</p>
 
-            {itemCards.map((cat, idx) => {
-              const title = cat?.card?.card?.title || 'Category';
-              const items = cat?.card?.card?.itemCards || [];
-              return (
-                <div key={idx}>
-                  <h2>{title}</h2>
-                  <ul>
-                    {items.map((item, i) => {
-                      const info = item?.card?.info || item?.card?.card?.info || {};
-                      const id = info.id ?? i;
-                      const price = info.price ?? info.defaultPrice ?? 0;
-                      return (
-                        <li key={id}>
-                          <h3>{info.name}</h3>
-                          {info.description && <p>{info.description}</p>}
-                          <p>Price: ₹{price / 100}</p>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
-    </div>
-  );
+  //           {itemCards.map((cat, idx) => {
+  //             const title = cat?.card?.card?.title || 'Category';
+              
+  //             const items = cat?.card?.card?.itemCards || [];
+  //             return (
+  //               <div key={idx}>
+  //                 <h2>{title}</h2>
+  //                 <ul>
+  //                   {items.map((item, i) => {
+  //                     const info = item?.card?.info || item?.card?.card?.info || {};
+  //                     const id = info.id ?? i;
+  //                     const price = info.price ?? info.defaultPrice ?? 0;
+  //                     return (
+  //                       <li key={id}>
+  //                         <h3>{info.name}</h3>
+  //                         {info.description && <p>{info.description}</p>}
+  //                         <p>Price: ₹{price / 100}</p>
+  //                       </li>
+  //                     );
+  //                   })}
+  //                 </ul>
+  //               </div>
+  //             );data = {itemCard?.card?.card?.title}
+  //           })}
+    return(
+      <div>
+           <h2 className="font-bold my-6  text-center  text-2xl ">{name}</h2>
+          <p className="font-medium text-center text-lg">
+            {cuisines.join(", ")} · {costForTwoMessage} · ⭐{avgRating}</p>
+          
+          {itemCards.map((itemCard, index)=>{
+            return <RestaurantCategory key={index} data={itemCard?.card?.card} />
+
+})}
+
+</div>
+)
+
+ 
 };
           
 

@@ -1,6 +1,6 @@
 
 
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel} from "./RestaurantCard";
 import resObj from "../utils/mockData";
 import React, { useEffect, useState} from "react";
 import Shimmer from "./Shimmer";
@@ -14,6 +14,11 @@ const Body=()=>{
  const [listOfRestaurants,setListOfRestaurants]=useState([]);
  const [searchText,setSearchText]=useState("");
  const [filteredRestaurants,setFilteredRestaurants]=useState([]);
+
+ const restaurantCardPromoted = withPromotedLabel(RestaurantCard)
+
+
+
  useEffect(()=>{
     fetchData()
 },[])
@@ -55,14 +60,14 @@ if(listOfRestaurants.length===0){
 
   return listOfRestaurants.length===0?<Shimmer />:(
     <div className='body'>
-      <div className="top-bar">
+      <div className="flex ">
       <div>
-        <button className='search-button' onClick={onClickHandler}>
+        <button className='m-4 px-2 py-2 rounded-lg bg-gray-100 ' onClick={onClickHandler}>
         Search</button>
         <input
         type="text"
-        className='search-input'
-        placeholder='Search'
+        className='p-2 rounded-lg border border-gray-300'
+        placeholder='Search here'
         value={searchText}
         onChange={(e)=>{setSearchText(e.target.value)
        
@@ -70,22 +75,25 @@ if(listOfRestaurants.length===0){
         />
       </div>
       <div 
-      className='filter-button'
+      className=' p-2 m-4 bg-gray-50 cursor-pointer rounded-lg'
       onClick={()=>{
         const filteredList=resObj.filter((res)=>res.Rating>4)
         setListOfRestaurants(filteredList);
       }}
       >Top rated Restaurants</div>
       </div>
-      <div className='restro-container'>
+      <div className='flex flex-wrap '>
         
           {filteredRestaurants.map((restaurant) => (
             
             <Link to={`/restaurant/${restaurant.info.id}`} key={restaurant.info.id}>
+              {restaurant.info.promoted ?( <restaurantCardPromoted
+              resData={restaurant}
+            />) :(
 
             <RestaurantCard
               resData={restaurant}
-            /></Link>
+            />)}</Link>
           ))}
        
         {/* <RestaurantCard
