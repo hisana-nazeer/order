@@ -1,24 +1,69 @@
-const ItemList = ({ items }) => {
-  if (!items || items.length === 0) return <div>No items</div>;
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
+import { CDN_URL } from "../utils/constants";
+
+const ItemList = ({ items = [] }) => {
+  const dispatch = useDispatch();
+
+  const handleAddItem = (item) => {
+    dispatch(addItem(item)); // pass full item instead of string
+  };
+
+  if (!items || items.length === 0)
+    return (
+      <div className="text-gray-500 italic p-4 text-center">
+        No items
+      </div>
+    );
 
   return (
-    <div className="p-2 text-left">
-      {items.map((item) => (
-        <div key={item.card.info.id} className="border-b p-2 m-2  ">
-       <img
-                src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_100,h_100,c_fill/${item.card.info.imageId}`}
-                alt={item.card.info.name}
-                className="ml-4 w-24 h-24 rounded-lg object-cover shadow-sm"
-              />
-        <div className="p-2">
-         <span className="">{item.card.info.name}</span>   
-         <span className="pl-9 text-en">-${Math.floor(item.card.info.price?item.card.info.price/1500:Math.floor(item.card.info.defaultprice/1500))}</span>
-         <p className="pt-2">{item.card.info.description}</p>
+    <div>
+      {items.map((item, index) => {
+        // Support both menu items and cart items
+        const info = item?.card?.info || item?.info || item;
 
+        return (
+          <div
+            data-testid="foodItems"
+            key={info.id || index}
+            className="p-2 m-2 border-gray-200 border-b-2 text-left flex justify-between"
+          >
+            <div className="w-9/12">
+              <div className="py-2">
+                <span>{info.name}</span>
+                <span>
+                  {" "}
+                  - ${info.price
+                    ? Math.floor(info.price / 1500)
+                    : info.defaultPrice
+                    ? Math.floor(info.defaultPrice / 1500)
+                    : 0}
+                </span>
+              </div>
+              <p className="text-xs">{info.description}</p>
+            </div>
 
-            </div> 
-        </div>
-      ))}
+            <div className="w-3/12 p-4 relative">
+              {info.imageId && (
+                <img
+                  src={CDN_URL + info.imageId}
+                  alt={info.name}
+                  className="w-full"
+                />
+              )}
+              {/* Add button only if item is from menu */}
+              {item?.card?.info && (
+                <button
+                  onClick={() => handleAddItem(info)}
+                  className="absolute bottom-1 left-1/2 transform -translate-x-1/2 bg-white text-green-600 font-semibold text-sm px-3 py-1 rounded-lg shadow-md hover:bg-green-50 transition-all h-7"
+                >
+                  Add
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };

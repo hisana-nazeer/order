@@ -12,6 +12,7 @@ const RestaurantMenu =() =>{
     const itemCards = resInfo?.cards[4].groupedCard?.cardGroupMap?.REGULAR?.cards || []
     const categories = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
 
+    const[showIndex, setShowIndex]=useState(null)
 
     useEffect(()=>{
         fetchMenu()
@@ -70,10 +71,15 @@ const RestaurantMenu =() =>{
           <p className="font-medium text-center text-lg">
             {cuisines.join(", ")} · {costForTwoMessage} · ⭐{avgRating}</p>
           
-          {itemCards.map((itemCard, index)=>{
-            return <RestaurantCategory key={index} data={itemCard?.card?.card} />
+          {itemCards.map((itemCard, index)=>(
+            <RestaurantCategory  
+            data={itemCard?.card?.card} 
+            //showItems={index=== showIndex}
+            showItems={index===showIndex?true:false}
+            setShowIndex ={()=>setShowIndex(index)}
+            />
 
-})}
+))}
 
 </div>
 )

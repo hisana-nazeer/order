@@ -1,11 +1,17 @@
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 import useOnlineStatus from "../utils/useOnlineStatus"
+import UserContext from "../utils/userContext";
 const Header = () =>{
 
   const onlineStatus=useOnlineStatus();
 
+  const {loggedInUser}= useContext(UserContext)
+
+  const cart = useSelector((store=> store.cart.items))
   return(
     <div className=" shadow-lg mb-2 bg-slate-300">
 
@@ -28,7 +34,10 @@ const Header = () =>{
           <li>
              <Link to="/contact">Contact</Link>
           </li>
-          <li>Cart</li>
+          <li>
+            <Link to="/cart">Cart -{cart.length}</Link>
+            </li>
+          <li className="font-bold">{loggedInUser}</li>
          </ul>
         </div>
         </div>
